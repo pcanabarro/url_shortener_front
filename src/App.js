@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUrls, deleteUrl, updateUrl, createRandomUrl, createUrl } from './api';
+import './App.css';
 
 function App() {
   const [urls, setUrls] = useState([]);
@@ -18,7 +19,6 @@ function App() {
     try {
       const response = await getAllUrls();
       setUrls(response.data);
-      // console.log("aaaa", response.data)
     } catch (error) {
       console.error('Error fetching URLs:', error);
     }
@@ -26,8 +26,8 @@ function App() {
 
   const handleCreateUrlRandom = async () => {
     try {
-      await createRandomUrl({ "original_url": newOriginalUrlRandom });
-      setNewOriginalUrlRandom(newOriginalUrlRandom);
+      await createRandomUrl({ original_url: newOriginalUrlRandom });
+      setNewOriginalUrlRandom('');
       loadUrls();
     } catch (error) {
       console.error('Error creating Random URL:', error);
@@ -36,9 +36,9 @@ function App() {
 
   const handleCreateUrl = async () => {
     try {
-      await createUrl({ "original_url": newOriginalUrl, "short_url": newShortUrl });
-      setNewOriginalUrl(newOriginalUrl);
-      setNewShortUrl(newShortUrl);
+      await createUrl({ original_url: newOriginalUrl, short_url: newShortUrl });
+      setNewOriginalUrl('');
+      setNewShortUrl('');
       loadUrls();
     } catch (error) {
       console.error('Error creating URL:', error);
@@ -48,7 +48,9 @@ function App() {
   const handleUpdateUrl = async () => {
     try {
       await updateUrl({ id: updateId, original_url: updatedUrl, short_url: updatedShortUrl });
-      setUpdatedShortUrl(updatedShortUrl);
+      setUpdateId(null);
+      setUpdatedUrl('');
+      setUpdatedShortUrl('');
       loadUrls();
     } catch (error) {
       console.error('Error updating URL:', error);
@@ -65,67 +67,77 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>URL Manager</h1>
+    <div className="app-container">
+      <h1 className="title">URL Manager</h1>
 
-      <div>
-        <h2>Create New URL Random</h2>
+      <div className="section">
+        <h2 className="section-title">Create New URL Random</h2>
         <input
           type="text"
+          className="input"
           value={newOriginalUrlRandom}
           onChange={(e) => setNewOriginalUrlRandom(e.target.value)}
           placeholder="Enter URL"
         />
-        <button onClick={handleCreateUrlRandom}>Create URL</button>
+        <button className="button" onClick={handleCreateUrlRandom}>Create URL</button>
       </div>
 
-      <div>
-        <h2>Create New URL</h2>
+      <div className="section">
+        <h2 className="section-title">Create New URL</h2>
         <input
           type="text"
+          className="input"
           value={newOriginalUrl}
           onChange={(e) => setNewOriginalUrl(e.target.value)}
           placeholder="Enter URL"
         />
         <input
           type="text"
+          className="input"
           value={newShortUrl}
           onChange={(e) => setNewShortUrl(e.target.value)}
           placeholder="Enter Shortcut"
         />
-        <button onClick={handleCreateUrl}>Create URL</button>
+        <button className="button" onClick={handleCreateUrl}>Create URL</button>
       </div>
 
-      <div>
-        <h2>All URLs</h2>
-        <ul>
+      <div className="section">
+        <h2 className="section-title">All URLs</h2>
+        <ul className="url-list">
           {urls.map((url) => (
-            <li key={url.id}>
-              Short: {url.short_url} | Original: {url.original_url}{' '}
-              <button onClick={() => handleDeleteUrl(url.id)}>Delete</button>
-              <button
-                onClick={() => {
+            <li className="url-item" key={url.id}>
+              <span>Short: {url.short_url} | Original: {url.original_url}</span>
+              <div className="url-actions">
+                <button className="button delete-button" onClick={() => handleDeleteUrl(url.id)}>Delete</button>
+                <button className="button update-button" onClick={() => {
                   setUpdateId(url.id);
                   setUpdatedUrl(url.original_url);
-                }}
-              >
-                Update
-              </button>
+                  setUpdatedShortUrl(url.short_url);
+                }}>Update</button>
+              </div>
             </li>
           ))}
         </ul>
       </div>
 
       {updateId && (
-        <div>
-          <h2>Update URL</h2>
+        <div className="section">
+          <h2 className="section-title">Update URL</h2>
           <input
             type="text"
-            value={updatedShortUrl}
-            onChange={(e) => setUpdatedShortUrl(e.target.value)}
+            className="input"
+            value={updatedUrl}
+            onChange={(e) => setUpdatedUrl(e.target.value)}
             placeholder="Enter updated URL"
           />
-          <button onClick={handleUpdateUrl}>Update URL</button>
+          <input
+            type="text"
+            className="input"
+            value={updatedShortUrl}
+            onChange={(e) => setUpdatedShortUrl(e.target.value)}
+            placeholder="Enter updated Short URL"
+          />
+          <button className="button" onClick={handleUpdateUrl}>Update URL</button>
         </div>
       )}
     </div>
