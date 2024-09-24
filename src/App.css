@@ -1,29 +1,36 @@
 /* App.css */
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+body, html {
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-container {
   max-width: 900px;
-  margin: 20px auto;
+  width: 100%;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .title {
-  text-align: center;
   color: #333;
   margin-bottom: 30px;
 }
 
 .section {
   margin-bottom: 20px;
+  padding: 5px 0px;
+  /* border: #cbcbcb solid 1px;
+  border-radius: 10px; */
 }
 
 .section-title {
@@ -68,34 +75,9 @@ body {
   margin-bottom: 10px;
   padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 12px;
 }
 
-.url-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.delete-button {
-  background-color: #e74c3c;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
-}
-
-.update-button {
-  background-color: #f1c40f;
-}
-
-.update-button:hover {
-  background-color: #f39c12;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #4a90e2;
+.delete-update {
+  margin: 10px 10px 0px 0px;
 }

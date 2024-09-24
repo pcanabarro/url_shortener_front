@@ -84,21 +84,25 @@ function App() {
 
       <div className="section">
         <h2 className="section-title">Create New URL</h2>
-        <input
-          type="text"
-          className="input"
-          value={newOriginalUrl}
-          onChange={(e) => setNewOriginalUrl(e.target.value)}
-          placeholder="Enter URL"
-        />
-        <input
-          type="text"
-          className="input"
-          value={newShortUrl}
-          onChange={(e) => setNewShortUrl(e.target.value)}
-          placeholder="Enter Shortcut"
-        />
-        <button className="button" onClick={handleCreateUrl}>Create URL</button>
+        <div className='url-input'>
+          <input
+            type="text"
+            className="input"
+            value={newOriginalUrl}
+            onChange={(e) => setNewOriginalUrl(e.target.value)}
+            placeholder="Enter URL"
+          />
+          <input
+            type="text"
+            className="input"
+            value={newShortUrl}
+            onChange={(e) => setNewShortUrl(e.target.value)}
+            placeholder="Enter Shortcut"
+          />
+        </div>
+        <div>
+          <button className="button" onClick={handleCreateUrl}>Create URL</button>
+        </div>
       </div>
 
       <div className="section">
@@ -108,8 +112,8 @@ function App() {
             <li className="url-item" key={url.id}>
               <span>Short: {url.short_url} | Original: {url.original_url}</span>
               <div className="url-actions">
-                <button className="button delete-button" onClick={() => handleDeleteUrl(url.id)}>Delete</button>
-                <button className="button update-button" onClick={() => {
+                <button className="delete-update button" onClick={() => handleDeleteUrl(url.id)}>Delete</button>
+                <button className="delete-update button" onClick={() => {
                   setUpdateId(url.id);
                   setUpdatedUrl(url.original_url);
                   setUpdatedShortUrl(url.short_url);
